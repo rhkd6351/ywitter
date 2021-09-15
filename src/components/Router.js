@@ -1,0 +1,34 @@
+import React, { Fragment } from "react";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import Auth from "routes/Auth";
+import Home from "routes/Home";
+import Profile from "routes/Profile";
+import Navigation from "components/Navigation";
+
+const AppRouter = ({ isLoggedIn, userObj }) => {
+  //   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //   라우트 기능만 하는것이 적합, 스테이트 관리는 상위 컴포넌트로 빼준다.
+  return (
+    <Router>
+      {isLoggedIn && <Navigation />}
+      <Switch>
+        {isLoggedIn ? (
+          <Fragment>
+            <Route exact path="/">
+              <Home userObj={userObj} />
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+          </Fragment>
+        ) : (
+          <Route exact path="/">
+            <Auth />
+          </Route>
+        )}
+      </Switch>
+    </Router>
+  );
+};
+
+export default AppRouter;
