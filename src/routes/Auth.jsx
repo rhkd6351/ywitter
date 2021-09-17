@@ -50,10 +50,7 @@ const Auth = () => {
     } else if (name === "github") {
       provider = new authService.GithubAuthProvider();
     }
-    const data = await authService.signInWithPopup(
-      authService.getAuth(),
-      provider
-    );
+    await authService.signInWithPopup(authService.getAuth(), provider);
   };
 
   return (
