@@ -9,6 +9,7 @@ import "css/auth.css";
 import "css/yweetFactory.css";
 import "css/yweet.css";
 import "css/right.css";
+import "css/profile.css";
 
 const App = () => {
   const [init, setInit] = useState(false);

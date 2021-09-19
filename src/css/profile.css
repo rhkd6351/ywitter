@@ -1,0 +1,87 @@
+.profile-header {
+  height: 55px;
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.backward-button {
+  float: left;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  font-size: 18px;
+  border-radius: 40px;
+}
+.backward-button:hover {
+  background-color: RGB(192, 192, 192);
+}
+
+.profile-header-title {
+  float: left;
+}
+.profile-header-username {
+  width: 530px;
+  padding: 10px 10px 0 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.profile-header-yweet {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+.profile-background {
+  width: 600px;
+  height: 200px;
+  background-color: rgb(207, 217, 222);
+}
+
+.profile-user-img {
+  width: 140px;
+  height: 140px;
+  border: 5px solid white;
+  border-radius: 100px;
+  position: relative;
+  left: 15px;
+  top: -60px;
+}
+
+.profile-edit-form {
+  width: 600px;
+  position: relative;
+  top: -40px;
+}
+.profile-edit-form-label {
+  position: absolute;
+  left: 25px;
+  top: 5px;
+  font-size: 12px;
+  text-decoration: underline;
+  color: rgb(95, 111, 123);
+}
+.profile-edit-form-text {
+  margin-left: 15px;
+  width: 140px;
+  height: 24px;
+  font-size: 18px;
+  padding: 12px 5px 5px 8px;
+  border: 1px solid RGB(207, 217, 222);
+  border-radius: 20px;
+}
+.profile-edit-form-text:focus {
+  outline: none;
+}
+.profile-edit-form-submit {
+  margin-left: 20px;
+}
+.profile-edit-form-submit,
+.profile-edit-form-logout {
+  background-color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 24px;
+}
+.profile-edit-form-submit:hover,
+.profile-edit-form-logout:hover {
+  background-color: rgb(179, 179, 179);
+}

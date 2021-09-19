@@ -73,8 +73,10 @@ const Yweet = ({ yweetObj, isOwner }) => {
           />
           <div className="yweet-title">
             {yweetObj.creator.displayName}{" "}
-            <span style={{ fontWeight: "400", fontSize: "12px" }}>
-              {new Date(yweetObj.createdAt).toLocaleString()}
+            <span
+              style={{ color: "gray", fontWeight: "400", fontSize: "12px" }}
+            >
+              {new Date(yweetObj.createdAt).toLocaleTimeString()}
             </span>
           </div>
           {isOwner && (
