@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "fbInstance";
 
+import "css/common.css";
+import "css/home.css";
+import "css/navigation.css";
+import "css/auth.css";
+import "css/yweetFactory.css";
+import "css/yweet.css";
+import "css/right.css";
+
 const App = () => {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);

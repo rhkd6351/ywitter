@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { authService, dbService } from "fbInstance";
 import { useHistory } from "react-router";
-import Yweet from "components/Yweet";
 import YweetList from "components/YweetList";
 
 const Profile = ({ userObj, refreshUser }) => {
@@ -19,8 +18,8 @@ const Profile = ({ userObj, refreshUser }) => {
     const yweetRef = dbService.collection(dbService.getFirestore(), "yweet");
     const query = dbService.query(
       yweetRef,
-      dbService.where("creatorId", "==", userObj.uid),
-      dbService.orderBy("createdAt")
+      dbService.where("creator.uid", "==", userObj.uid),
+      dbService.orderBy("createdAt", "desc")
     );
 
     dbService.getDocs(query).then((result) => {
@@ -55,7 +54,7 @@ const Profile = ({ userObj, refreshUser }) => {
 
   useEffect(() => {
     getMyYweets();
-  });
+  }, []);
 
   return (
     <>

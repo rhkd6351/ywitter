@@ -1,0 +1,124 @@
+.auth-wrapper {
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+  min-width: 1000px;
+}
+
+/* pull left */
+.auth-container-left {
+  float: left;
+  width: 50%;
+  height: calc(100vh - 50px);
+  background-color: rgb(153, 208, 245);
+}
+
+.twitter-icon {
+  position: relative;
+  color: white;
+  font-size: 300px;
+  left: calc(50% - 150px);
+  top: calc(50% - 150px);
+}
+
+/* pull right */
+
+.auth-container-right {
+  float: left;
+  width: 50%;
+  height: calc(100vh - 50px);
+}
+.auth-container-right-element {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  /* border: 1px solid black; */
+  margin: 300px 0 0 50px;
+}
+.auth-title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.auth-email-input,
+.auth-password-input {
+  width: 290px;
+  height: 50px;
+  border: 1px solid rgb(142, 142, 142);
+  border-radius: 10px;
+  margin-top: 10px;
+  outline: none;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.auth-email-input:focus,
+.auth-password-input:focus {
+  border: 2px solid rgb(49, 173, 255);
+  margin-bottom: -2px;
+}
+
+.auth-submit {
+  width: 300px;
+  margin-top: 20px;
+  height: 40px;
+  color: white;
+  background-color: rgb(45, 155, 240);
+  border: none;
+  border-radius: 20px;
+
+  transition-duration: 0.2s;
+}
+
+.auth-submit:hover {
+  background-color: rgb(14, 102, 169);
+
+  transition-duration: 0.2s;
+}
+
+.auth-toggle {
+  margin-top: 10px;
+  color: rgb(45, 155, 240);
+}
+.auth-toggle:hover {
+  color: rgb(0, 59, 104);
+}
+
+.social-login-google {
+  width: 300px;
+  height: 30px;
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 10px;
+  margin-top: 5px;
+  transition-duration: 0.2s;
+}
+
+.social-login-google:hover {
+  background-color: rgb(186, 186, 186);
+  transition-duration: 0.2s;
+}
+
+/* footer */
+
+.auth-footer {
+  float: left;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  margin-top: 10px;
+  line-height: 40px;
+}
+
+/* media query */
+@media screen and (max-height: 750px) {
+  .auth-container-left,
+  .auth-container-right {
+    height: 750px;
+  }
+  .auth-footer {
+    display: none;
+  }
+}

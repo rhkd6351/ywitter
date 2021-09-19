@@ -3,13 +3,13 @@ import Yweet from "./Yweet";
 
 const YweetList = ({ yweets, userObj }) => {
   return (
-    <div>
+    <div className="yweet-list">
       {yweets.map((data) => {
         return (
           <Yweet
             key={data.id}
             yweetObj={data}
-            isOwner={data.creatorId === userObj.uid}
+            isOwner={data.creator.uid === userObj.uid}
           />
         );
       })}

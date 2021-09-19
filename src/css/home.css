@@ -1,0 +1,12 @@
+.home-wrapper {
+  width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+}
+.align-center {
+  width: 600px;
+  min-height: 100vh;
+  float: left;
+  border-left: 1px solid rgb(227, 227, 227);
+  border-right: 1px solid rgb(227, 227, 227);
+}

@@ -1,0 +1,116 @@
+.factory-wrapper {
+  float: left;
+  width: 600px;
+
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.yweet-list {
+  float: left;
+}
+
+.factory-title {
+  height: 30px;
+  font-size: 20px;
+  line-height: 30px;
+  border-bottom: 1px solid rgb(223, 223, 223);
+  padding: 10px;
+  font-weight: bold;
+}
+.factory-form {
+  width: 580px;
+  height: 170px;
+  padding: 10px;
+}
+
+.user-img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 30px;
+  object-fit: contain;
+}
+.factory-form-top {
+  height: 120px;
+}
+.factory-form-bottom {
+  padding-top: 13px;
+  margin-left: -10px;
+  width: 600px;
+  height: 50px;
+  border-top: 1px solid rgb(227, 227, 227);
+}
+.factory-input-text {
+  float: left;
+  width: 510px;
+  height: 100px;
+  resize: none;
+  border: none;
+}
+.factory-input-text:focus {
+  outline: none;
+}
+
+.factory-bottom-line {
+  background-color: black;
+  width: 1000px;
+}
+.factory-input-file {
+  display: none;
+}
+
+.factory-button-image {
+  transition-duration: 0.2s;
+
+  width: 40px;
+  height: 30px;
+  border: none;
+  background-color: white;
+  font-size: 18px;
+  border-radius: 15px;
+  float: right;
+  margin-right: 12px;
+}
+
+.factory-button-image:hover {
+  transition-duration: 0.2s;
+  background-color: rgba(182, 182, 182, 0.55);
+}
+
+.factory-input-submit {
+  transition-duration: 0.2s;
+  width: 70px;
+  height: 30px;
+  background-color: rgba(45, 155, 240, 0.55);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  float: right;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+.factory-input-submit:hover {
+  transition-duration: 0.2s;
+  background-color: rgb(45, 155, 240);
+}
+
+.attachment-img {
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+}
+.factory-input-button {
+  transition-duration: 0.2s;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  color: rgba(255, 0, 0, 0.324);
+  position: relative;
+  top: -35px;
+  left: -15px;
+}
+.factory-input-button:hover {
+  transition-duration: 0.2s;
+  color: rgb(255, 0, 0);
+}

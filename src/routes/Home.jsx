@@ -12,10 +12,9 @@ const Home = ({ userObj }) => {
       yweetRef,
       dbService.orderBy("createdAt", "desc")
     );
-
     dbService.onSnapshot(
-      yweetRef,
-      dbService.getDocs(query).then((result) => {
+      query,
+      (result) => {
         const yweets = result.docs.map((doc) => {
           return {
             id: doc.id,
@@ -23,14 +22,25 @@ const Home = ({ userObj }) => {
           };
         });
         setYweets(yweets);
-      })
+      }
+      // dbService.getDocs(query).then((result) => {
+      //   const yweets = result.docs.map((doc) => {
+      //     return {
+      //       id: doc.id,
+      //       ...doc.data(),
+      //     };
+      //   });
+      //   setYweets(yweets);
+      // })
     );
-  });
+  }, []);
 
   return (
     <>
-      <YweetFactory userObj={userObj} />
-      <YweetList yweets={yweets} userObj={userObj} />
+      <div className="align-center">
+        <YweetFactory userObj={userObj} />
+        <YweetList yweets={yweets} userObj={userObj} />
+      </div>
     </>
   );
 };

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import { dbService, storageService } from "fbInstance";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMinus,
+  faMinusCircle,
+  faMinusSquare,
+} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 const Yweet = ({ yweetObj, isOwner }) => {
   const [editMode, setEditMode] = useState(false);
@@ -58,25 +65,40 @@ const Yweet = ({ yweetObj, isOwner }) => {
           </>
         )
       ) : (
-        <>
-          <h4>{yweetObj.text}</h4>
+        <div className="yweet-wrapper">
+          <img
+            src={yweetObj.creator.photoURL}
+            className="yweet-profile-img"
+            alt="http://placehold.it/50x50"
+          />
+          <div className="yweet-title">
+            {yweetObj.creator.displayName}{" "}
+            <span style={{ fontWeight: "400", fontSize: "12px" }}>
+              {new Date(yweetObj.createdAt).toLocaleString()}
+            </span>
+          </div>
+          {isOwner && (
+            <>
+              <button className="yweet-button-delete" onClick={onDeleteClick}>
+                <FontAwesomeIcon
+                  style={{ fontSize: "18px" }}
+                  icon={faTrashAlt}
+                />
+              </button>
+              <button className="yweet-button-edit" onClick={toggleEdit}>
+                <FontAwesomeIcon icon={faEdit} style={{ fontSize: "18px" }} />
+              </button>
+            </>
+          )}
+          <div className="yweet-text">{yweetObj.text}</div>
           {yweetObj.attachmentUrl && (
             <img
+              className="yweet-attachment"
               src={yweetObj.attachmentUrl}
-              width="50px"
-              height="50px"
               alt=""
             ></img>
           )}
-          {isOwner ? (
-            <>
-              <button onClick={onDeleteClick}>Delete</button>
-              <button onClick={toggleEdit}>Edit</button>
-            </>
-          ) : (
-            ""
-          )}
-        </>
+        </div>
       )}
     </div>
   );

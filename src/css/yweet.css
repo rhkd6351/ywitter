@@ -1,0 +1,55 @@
+.yweet-wrapper {
+  width: 580px;
+  min-height: 70px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+  padding: 10px;
+}
+
+.yweet-profile-img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 30px;
+  object-fit: contain;
+}
+
+.yweet-text {
+  width: 450px;
+  max-height: 80px;
+  overflow: hidden;
+
+  float: left;
+  word-break: break-all;
+}
+
+.yweet-title {
+  float: left;
+  width: 450px;
+  height: 20px;
+  font-weight: bold;
+}
+
+.yweet-button-delete,
+.yweet-button-edit {
+  transition-duration: 0.2s;
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin-left: 5px;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.yweet-button-delete:hover,
+.yweet-button-edit:hover {
+  transition-duration: 0.2s;
+  background-color: rgb(201, 201, 201);
+}
+
+.yweet-attachment {
+  border-radius: 20px;
+  max-width: 450px;
+  margin-top: 20px;
+}

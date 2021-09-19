@@ -1,3 +1,8 @@
+import {
+  faCameraRetro,
+  faMinusCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dbService, storageService } from "fbInstance";
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -25,7 +30,11 @@ const YweetFactory = ({ userObj }) => {
     const yweetObj = {
       text: yweet,
       createdAt: Date.now(),
-      creatorId: userObj.uid,
+      creator: {
+        uid: userObj.uid,
+        displayName: userObj.displayName,
+        photoURL: userObj.photoURL || "",
+      },
       attachmentUrl,
     };
     dbService.addDoc(
@@ -66,29 +75,61 @@ const YweetFactory = ({ userObj }) => {
     setAttachment(null);
     onFileChange(null);
   };
+
+  const onImageButtonClick = (event) => {
+    image.current.click();
+  };
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        value={yweet}
-        onChange={onChange}
-        type="text"
-        placeholder="What's on your mind?"
-        maxLength={120}
-      />
-      <input type="submit" value="Yweet" />
-      <input
-        ref={image}
-        type="file"
-        accept="image/*"
-        onChange={onFileChange}
-      ></input>
-      {attachment && (
-        <>
-          <img src={attachment} width="50px" height="50px" alt="" />
-          <button onClick={onClearAttachment}>clear attachment</button>
-        </>
-      )}
-    </form>
+    <div className="factory-wrapper">
+      <div className="factory-title">Home</div>
+      <form className="factory-form" onSubmit={onSubmit}>
+        <div className="factory-form-top">
+          <img
+            className="user-img"
+            src={
+              userObj.photoURL ? userObj.photoURL : "http://placehold.it/50x50"
+            }
+          />
+          <textarea
+            placeholder="what's happening?"
+            className="factory-input-text"
+            value={yweet}
+            onChange={onChange}
+            type="text"
+            maxLength={120}
+          />
+        </div>
+        <div className="factory-form-bottom">
+          <input
+            className="factory-input-file"
+            ref={image}
+            type="file"
+            accept="image/*"
+            onChange={onFileChange}
+            display="none"
+          ></input>
+          {attachment && (
+            <>
+              <img className="attachment-img" src={attachment} alt="" />
+              <button
+                className="factory-input-button"
+                onClick={onClearAttachment}
+              >
+                <FontAwesomeIcon icon={faMinusCircle} />
+              </button>
+            </>
+          )}
+          <input className="factory-input-submit" type="submit" value="Yweet" />
+          <button
+            type="button"
+            className="factory-button-image"
+            onClick={onImageButtonClick}
+          >
+            <FontAwesomeIcon icon={faCameraRetro} />
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
