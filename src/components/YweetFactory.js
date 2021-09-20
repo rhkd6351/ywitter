@@ -35,6 +35,7 @@ const YweetFactory = ({ userObj }) => {
         displayName: userObj.displayName,
         photoURL: userObj.photoURL || "",
       },
+      like: 0,
       attachmentUrl,
     };
     dbService.addDoc(
@@ -96,7 +97,7 @@ const YweetFactory = ({ userObj }) => {
             value={yweet}
             onChange={onChange}
             type="text"
-            maxLength={120}
+            maxLength={500}
           />
         </div>
         <div className="factory-form-bottom">
@@ -125,7 +126,10 @@ const YweetFactory = ({ userObj }) => {
             className="factory-button-image"
             onClick={onImageButtonClick}
           >
-            <FontAwesomeIcon icon={faCameraRetro} />
+            <FontAwesomeIcon
+              style={{ color: "rgb(45, 155, 240)" }}
+              icon={faCameraRetro}
+            />
           </button>
         </div>
       </form>

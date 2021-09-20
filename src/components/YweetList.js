@@ -10,6 +10,7 @@ const YweetList = ({ yweets, userObj }) => {
             key={data.id}
             yweetObj={data}
             isOwner={data.creator.uid === userObj.uid}
+            userObj={userObj}
           />
         );
       })}

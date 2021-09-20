@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dbService, storageService } from "fbInstance";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faMinus,
-  faMinusCircle,
-  faMinusSquare,
-} from "@fortawesome/free-solid-svg-icons";
-import { faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+  faEdit,
+  faTrashAlt,
+  faThumbsUp,
+} from "@fortawesome/free-regular-svg-icons";
+import { faThumbsUp as faThumbsUpSolid } from "@fortawesome/free-solid-svg-icons";
 
-const Yweet = ({ yweetObj, isOwner }) => {
+const Yweet = ({ yweetObj, isOwner, userObj }) => {
   const [editMode, setEditMode] = useState(false);
   const [newYweet, setNewYweet] = useState(yweetObj.text);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeObj, setLikeObj] = useState();
 
   const onDeleteClick = async () => {
     const ok = window.confirm("are you sure?");
@@ -23,7 +25,6 @@ const Yweet = ({ yweetObj, isOwner }) => {
         yweetObj.attachmentUrl
       );
       const result = await storageService.deleteObject(response);
-      console.log(result);
     }
   };
 
@@ -44,8 +45,63 @@ const Yweet = ({ yweetObj, isOwner }) => {
       dbService.doc(dbService.getFirestore(), "yweet", yweetObj.id),
       { text: newYweet }
     );
-    toggleEdit();
+    dbService.toggleEdit();
   };
+
+  const onLikeClick = () => {
+    const yweetDoc = dbService.doc(
+      dbService.getFirestore(),
+      "yweet",
+      yweetObj.id
+    );
+    if (!isLiked) {
+      setIsLiked(true);
+      dbService
+        .addDoc(dbService.collection(dbService.getFirestore(), "like"), {
+          uid: userObj.uid,
+          yweetId: yweetObj.id,
+          likedAt: Date.now(),
+        })
+        .then((result) => {
+          setLikeObj({
+            id: result.id,
+            uid: userObj.uid,
+            yweetId: yweetObj.id,
+          });
+          dbService.updateDoc(yweetDoc, { like: yweetObj.like + 1 });
+        });
+    } else {
+      const likeDoc = dbService.doc(
+        dbService.getFirestore(),
+        "like",
+        likeObj.id
+      );
+      setIsLiked(false);
+      dbService.deleteDoc(likeDoc);
+      dbService.updateDoc(yweetDoc, { like: yweetObj.like - 1 });
+    }
+  };
+
+  const checkIsLiked = () => {
+    const collection = dbService.collection(dbService.getFirestore(), "like");
+    const query = dbService.query(
+      collection,
+      dbService.where("uid", "==", userObj.uid),
+      dbService.where("yweetId", "==", yweetObj.id)
+    );
+
+    dbService.getDocs(query).then((result) => {
+      console.log(result.docs.length);
+      if (result.docs.length > 0) {
+        setIsLiked(true);
+        setLikeObj({ id: result.docs[0].id, ...result.docs[0] });
+      }
+    });
+  };
+
+  useEffect(() => {
+    checkIsLiked();
+  }, []);
 
   return (
     <div>
@@ -100,6 +156,29 @@ const Yweet = ({ yweetObj, isOwner }) => {
               alt=""
             ></img>
           )}
+          <div className="yweet-bottom-bar">
+            <div className="yweet-like">
+              {isLiked ? (
+                <>
+                  <FontAwesomeIcon
+                    onClick={onLikeClick}
+                    className="yweet-like-button-filled"
+                    icon={faThumbsUpSolid}
+                  ></FontAwesomeIcon>
+                  <span style={{ fontSize: "9px" }}> {yweetObj.like}</span>
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon
+                    onClick={onLikeClick}
+                    className="yweet-like-button"
+                    icon={faThumbsUp}
+                  ></FontAwesomeIcon>
+                  <span style={{ fontSize: "9px" }}> {yweetObj.like}</span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

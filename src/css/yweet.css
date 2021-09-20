@@ -1,8 +1,9 @@
 .yweet-wrapper {
   width: 580px;
-  min-height: 70px;
+  min-height: 90px;
   border-bottom: 1px solid rgb(233, 233, 233);
   padding: 10px;
+  overflow: auto;
 }
 .yweet-wrapper:first-child {
   border-top: 1px solid rgb(233, 233, 233);
@@ -19,7 +20,7 @@
 
 .yweet-text {
   width: 450px;
-  max-height: 80px;
+  min-height: 30px;
   overflow: hidden;
 
   float: left;
@@ -55,4 +56,69 @@
   border-radius: 20px;
   max-width: 450px;
   margin-top: 20px;
+}
+
+.yweet-bottom-bar {
+  margin-top: 10px;
+  width: 580px;
+  height: 30px;
+  float: left;
+}
+
+.yweet-like {
+  line-height: 30px;
+  float: left;
+  margin-left: 50px;
+  color: rgb(0, 0, 0);
+}
+.yweet-like-button {
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  color: rgb(31, 114, 177);
+
+  animation-iteration-count: initial;
+  animation-duration: 0.4s;
+  animation-name: unLiked;
+  animation-fill-mode: forwards;
+}
+.yweet-like-button:hover,
+.yweet-like-button-filled:hover {
+  background-color: rgb(186, 186, 186);
+}
+.yweet-like-button-filled {
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  color: rgb(31, 114, 177);
+
+  animation-iteration-count: initial;
+  animation-duration: 0.4s;
+  animation-name: liked;
+  animation-fill-mode: forwards;
+}
+
+@keyframes liked {
+  from {
+    margin-bottom: 0px;
+  }
+  50% {
+    margin-bottom: 5px;
+  }
+  to {
+    margin-bottom: 0px;
+    transform: rotate(-30deg);
+  }
+}
+
+@keyframes unLiked {
+  from {
+    transform: rotate(-30deg);
+    margin-bottom: 0px;
+  }
+  50% {
+    margin-bottom: 0px;
+  }
+  to {
+    margin-bottom: 0px;
+    transform: rotate(0deg);
+  }
 }
