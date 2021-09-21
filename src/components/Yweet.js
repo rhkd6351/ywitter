@@ -6,13 +6,18 @@ import {
   faTrashAlt,
   faThumbsUp,
 } from "@fortawesome/free-regular-svg-icons";
-import { faThumbsUp as faThumbsUpSolid } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRetweet,
+  faThumbsUp as faThumbsUpSolid,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Yweet = ({ yweetObj, isOwner, userObj }) => {
   const [editMode, setEditMode] = useState(false);
   const [newYweet, setNewYweet] = useState(yweetObj.text);
   const [isLiked, setIsLiked] = useState(false);
+  const [isReYweeted, setisReYweeted] = useState(false);
   const [likeObj, setLikeObj] = useState();
+  const [reYweetObj, setReYweetObj] = useState();
 
   const onDeleteClick = async () => {
     const ok = window.confirm("are you sure?");
@@ -60,7 +65,7 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
         .addDoc(dbService.collection(dbService.getFirestore(), "like"), {
           uid: userObj.uid,
           yweetId: yweetObj.id,
-          likedAt: Date.now(),
+          regDate: Date.now(),
         })
         .then((result) => {
           setLikeObj({
@@ -91,7 +96,6 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
     );
 
     dbService.getDocs(query).then((result) => {
-      console.log(result.docs.length);
       if (result.docs.length > 0) {
         setIsLiked(true);
         setLikeObj({ id: result.docs[0].id, ...result.docs[0] });
@@ -99,8 +103,55 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
     });
   };
 
+  const checkIsReYweeted = () => {
+    const collection = dbService.collection(
+      dbService.getFirestore(),
+      "reyweet"
+    );
+    const query = dbService.query(
+      collection,
+      dbService.where("uid", "==", userObj.uid),
+      dbService.where("yweetId", "==", yweetObj.id)
+    );
+
+    dbService.getDocs(query).then((result) => {
+      if (result.docs.length > 0) {
+        setisReYweeted(true);
+        setReYweetObj({ id: result.docs[0].id, ...result.docs[0] });
+      }
+    });
+  };
+
+  const onReYweetClick = () => {
+    if (!isReYweeted) {
+      dbService
+        .addDoc(dbService.collection(dbService.getFirestore(), "reyweet"), {
+          uid: userObj.uid,
+          yweetId: yweetObj.id,
+          regDate: Date.now(),
+        })
+        .then((result) => {
+          setReYweetObj({
+            id: result.id,
+            yweetId: yweetObj.id,
+            uid: userObj.uid,
+          });
+        });
+      setisReYweeted(true);
+    } else {
+      const reYweetRef = dbService.doc(
+        dbService.getFirestore(),
+        "reyweet",
+        reYweetObj.id
+      );
+      dbService.deleteDoc(reYweetRef);
+      setisReYweeted(false);
+    }
+  };
+
   useEffect(() => {
     checkIsLiked();
+    checkIsReYweeted();
   }, []);
 
   return (
@@ -123,9 +174,12 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
       ) : (
         <div className="yweet-wrapper">
           <img
-            src={yweetObj.creator.photoURL}
+            src={
+              yweetObj.creator.photoURL
+                ? yweetObj.creator.photoURL
+                : "http://placehold.it/50x50"
+            }
             className="yweet-profile-img"
-            alt="http://placehold.it/50x50"
           />
           <div className="yweet-title">
             {yweetObj.creator.displayName}{" "}
@@ -139,12 +193,12 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
             <>
               <button className="yweet-button-delete" onClick={onDeleteClick}>
                 <FontAwesomeIcon
-                  style={{ fontSize: "18px" }}
+                  style={{ fontSize: "14px" }}
                   icon={faTrashAlt}
                 />
               </button>
               <button className="yweet-button-edit" onClick={toggleEdit}>
-                <FontAwesomeIcon icon={faEdit} style={{ fontSize: "18px" }} />
+                <FontAwesomeIcon icon={faEdit} style={{ fontSize: "14px" }} />
               </button>
             </>
           )}
@@ -157,7 +211,7 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
             ></img>
           )}
           <div className="yweet-bottom-bar">
-            <div className="yweet-like">
+            <div className="yweet-bottom-element">
               {isLiked ? (
                 <>
                   <FontAwesomeIcon
@@ -176,6 +230,21 @@ const Yweet = ({ yweetObj, isOwner, userObj }) => {
                   ></FontAwesomeIcon>
                   <span style={{ fontSize: "9px" }}> {yweetObj.like}</span>
                 </>
+              )}
+            </div>
+            <div className="yweet-bottom-element">
+              {isReYweeted ? (
+                <FontAwesomeIcon
+                  onClick={onReYweetClick}
+                  className="yweet-reyweet-button reyweeted"
+                  icon={faRetweet}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  onClick={onReYweetClick}
+                  className="yweet-reyweet-button"
+                  icon={faRetweet}
+                />
               )}
             </div>
           </div>

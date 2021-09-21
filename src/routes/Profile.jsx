@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { authService, dbService } from "fbInstance";
-import { useHistory } from "react-router";
+import {
+  Route,
+  HashRouter as Router,
+  Switch,
+  useHistory,
+} from "react-router-dom";
 import YweetList from "components/YweetList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +15,7 @@ import {
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
+import ProfileNavigation from "components/ProfileNavigation";
 
 const Profile = ({ userObj, refreshUser }) => {
   const history = useHistory();
@@ -30,7 +36,7 @@ const Profile = ({ userObj, refreshUser }) => {
       dbService.orderBy("createdAt", "desc")
     );
 
-    dbService.getDocs(query).then((result) => {
+    dbService.onSnapshot(query, (result) => {
       const yweets = result.docs.map((doc) => {
         return {
           id: doc.id,
@@ -64,6 +70,10 @@ const Profile = ({ userObj, refreshUser }) => {
     getMyYweets();
   }, []);
 
+  const onNullImageHandler = (e) => {
+    e.target.src = "http://placehold.it/50x50";
+  };
+
   return (
     <div className="profile-wrapper align-center">
       <div className="profile-header">
@@ -77,7 +87,12 @@ const Profile = ({ userObj, refreshUser }) => {
       </div>
       <div className="profile-background"></div>
       <div className="profile-userInfo">
-        <img className="profile-user-img" src={userObj.photoURL} />
+        <img
+          className="profile-user-img"
+          src={
+            userObj.photoURL ? userObj.photoURL : "http://placehold.it/150x150"
+          }
+        />
         <form className="profile-edit-form" onSubmit={onSubmitHandler}>
           <label className="profile-edit-form-label">name</label>
           <input
@@ -99,7 +114,15 @@ const Profile = ({ userObj, refreshUser }) => {
           </button>
         </form>
       </div>
-      <YweetList yweets={myYweets} userObj={userObj} />
+      <ProfileNavigation />
+      <Router>
+        <Switch>
+          <Route exact path="/profile">
+            <YweetList yweets={myYweets} userObj={userObj} />
+          </Route>
+          <Route exact path="/profile/reYeets"></Route>
+        </Switch>
+      </Router>
     </div>
   );
 };

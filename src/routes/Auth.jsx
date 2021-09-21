@@ -30,6 +30,11 @@ const Auth = () => {
         .createUserWithEmailAndPassword(authService.getAuth(), email, password)
         .catch((error) => {
           setLoginError(error.message);
+        })
+        .then((response) => {
+          authService.updateProfile(authService.getAuth().currentUser, {
+            displayName: email.split("@")[0],
+          });
         });
     } else {
       await authService

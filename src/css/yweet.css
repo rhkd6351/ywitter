@@ -56,6 +56,7 @@
   border-radius: 20px;
   max-width: 450px;
   margin-top: 20px;
+  margin-left: 60px;
 }
 
 .yweet-bottom-bar {
@@ -65,25 +66,27 @@
   float: left;
 }
 
-.yweet-like {
+.yweet-bottom-element {
   line-height: 30px;
   float: left;
-  margin-left: 50px;
+  margin-left: 60px;
   color: rgb(0, 0, 0);
 }
 .yweet-like-button {
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
-  color: rgb(31, 114, 177);
+  color: rgb(150, 172, 147);
 
   animation-iteration-count: initial;
   animation-duration: 0.4s;
   animation-name: unLiked;
   animation-fill-mode: forwards;
 }
-.yweet-like-button:hover,
+.yweet-like-button:hover {
+  color: rgba(31, 114, 177, 0.603);
+}
 .yweet-like-button-filled:hover {
-  background-color: rgb(186, 186, 186);
+  color: rgba(31, 114, 177, 0.603);
 }
 .yweet-like-button-filled {
   background-color: rgb(255, 255, 255);
@@ -106,19 +109,31 @@
   to {
     margin-bottom: 0px;
     transform: rotate(-30deg);
+    margin-left: -3px;
+    margin-right: 2px;
   }
 }
 
 @keyframes unLiked {
   from {
     transform: rotate(-30deg);
-    margin-bottom: 0px;
-  }
-  50% {
-    margin-bottom: 0px;
   }
   to {
-    margin-bottom: 0px;
     transform: rotate(0deg);
   }
+}
+
+.yweet-reyweet-button {
+  color: rgb(177, 177, 177);
+}
+
+.yweet-reyweet-button {
+  color: rgb(150, 172, 147);
+}
+
+.yweet-reyweet-button:hover {
+  color: rgb(88, 131, 98);
+}
+.reyweeted {
+  color: rgb(0, 164, 38);
 }

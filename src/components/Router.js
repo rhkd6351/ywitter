@@ -18,7 +18,7 @@ const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
               <Route exact path="/">
                 <Home userObj={userObj} />
               </Route>
-              <Route exact path="/profile">
+              <Route path="/profile">
                 <Profile refreshUser={refreshUser} userObj={userObj} />
               </Route>
             </Fragment>

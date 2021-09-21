@@ -34,6 +34,7 @@ const YweetFactory = ({ userObj }) => {
         uid: userObj.uid,
         displayName: userObj.displayName,
         photoURL: userObj.photoURL || "",
+        parent: "",
       },
       like: 0,
       attachmentUrl,
